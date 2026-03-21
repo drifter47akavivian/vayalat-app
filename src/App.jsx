@@ -214,10 +214,6 @@ export default function App() {
   };
 
   const submitToGoogleSheets = async () => {
-    if (!GLOBAL_SCRIPT_URL || GLOBAL_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
-      alert("Google Sheets Web App URL is missing in the code!");
-      return;
-    }
     if (!formData.otfNumber && !formData.customerName) {
       alert("Please fill in at least the OTF Number or Customer Name before saving.");
       return;
@@ -252,9 +248,9 @@ export default function App() {
         itemsSummary: itemsSummary || "No items recorded"
       };
 
-      const response = await fetch(GLOBAL_SCRIPT_URL, {
+      const response = await fetch('/api/save', {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
